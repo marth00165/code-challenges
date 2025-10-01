@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFares } from '../hooks/useFairs';
+import { useFares } from '../hooks/useFares';
 import { calcFare, formatUSD } from '../utils/calcFare';
 
 type FareType = 'weekday' | 'evening_weekend' | 'anytime';

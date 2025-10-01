@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import FareForm from '../components/FairForm';
-import * as useFaresHook from '../hooks/useFairs';
+import FareForm from '../components/FareForm';
+import * as useFaresHook from '../hooks/useFares';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 
 const mockFaresJson = {

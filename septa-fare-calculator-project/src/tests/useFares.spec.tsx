@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { useFares } from '../hooks/useFairs';
+import { useFares } from '../hooks/useFares';
 
 const mockFaresJson = {
   zones: [
