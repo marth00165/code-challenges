@@ -13,7 +13,8 @@ body {
 /* Container */
 .fare-form {
   max-width: 370px;
-  width: 370px;
+  width: 100%;
+  min-width: 0;
   height: 700px;
   display: flex;
   flex-direction: column;
@@ -22,6 +23,7 @@ body {
   border-radius: 18px;
   box-shadow: 0 8px 32px rgba(60, 60, 90, 0.12);
   overflow: hidden;
+  margin: 1.5rem;
 }
 
 /* Header */
@@ -70,6 +72,10 @@ body {
   outline: none;
   background: #fff;
 }
+.fare-group input[type="number"].error {
+  border-color: #dc3545;
+  background-color: #fff8f8;
+}
 .fare-helper {
   font-size: 0.92rem;
   color: #7a869a;
@@ -80,10 +86,22 @@ body {
 .fare-radios {
   display: flex;
   gap: 1.2rem;
+  padding: 0.5rem 0;
+  width: 100%;
 }
+
+.fare-radios legend {
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  color: #23272f;
+}
+
 .fare-radios label {
   font-weight: 400;
   color: #23272f;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 /* Result panel */
@@ -106,4 +124,31 @@ body {
   font-size: 2.2rem;
   font-weight: 700;
   letter-spacing: 0.02em;
+}
+.fare-error {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 500px) {
+  .fare-form {
+    max-width: 100vw;
+    width: 100vw;
+    height: auto;
+    min-height: 100vh;
+    border-radius: 0;
+    margin: 0;
+  }
+  .fare-header {
+    font-size: 1rem;
+    padding: 1rem 0.7rem;
+  }
+  .fare-group {
+    padding: 1rem 0.7rem 0.5rem 0.7rem;
+  }
+  .fare-result {
+    padding: 1rem 0.7rem;
+    border-radius: 0 0 0 0;
+  }
 }

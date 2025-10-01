@@ -44,6 +44,7 @@ export default function FareForm(props: FareFormProps) {
   const [type, setType] = useState<FareType>('weekday');
   const [purchase, setPurchase] = useState<PurchaseType>('advance_purchase');
   const [rides, setRides] = useState<string>('1');
+  const [ridesError, setRidesError] = useState<string>('');
 
   // Options
   const typeOptions = [
@@ -65,6 +66,23 @@ export default function FareForm(props: FareFormProps) {
       faresJson as FaresJson
     );
   }
+
+  // Handle rides input change
+  const handleRidesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setRides(value);
+
+    if (type === 'anytime') {
+      const numValue = Number(value);
+      if (numValue % 10 !== 0) {
+        setRidesError('Anytime tickets must be purchased in multiples of 10');
+      } else {
+        setRidesError('');
+      }
+    } else {
+      setRidesError('');
+    }
+  };
 
   return (
     <form className='fare-form' onSubmit={(e) => e.preventDefault()}>
@@ -97,6 +115,7 @@ export default function FareForm(props: FareFormProps) {
           value={type}
           onChange={(e) => setType(e.target.value as FareType)}
           disabled={loading}
+          aria-describedby='type-helper'
         >
           {typeOptions.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -104,14 +123,16 @@ export default function FareForm(props: FareFormProps) {
             </option>
           ))}
         </select>
-        <div className='fare-helper'>
+        <div className='fare-helper' id='type-helper'>
           {faresJson && (faresJson as FaresJson).info[type]}
         </div>
       </div>
 
       <div className='fare-group'>
-        <label>Where will you purchase the fare?</label>
-        <div className='fare-radios'>
+        <fieldset className='fare-radios' aria-labelledby='purchase-legend'>
+          <legend id='purchase-legend'>
+            Where will you purchase the fare?
+          </legend>
           {purchaseOptions.map((opt) => (
             <label key={opt.value}>
               <input
@@ -125,7 +146,7 @@ export default function FareForm(props: FareFormProps) {
               {opt.label}
             </label>
           ))}
-        </div>
+        </fieldset>
       </div>
 
       <div className='fare-group'>
@@ -135,12 +156,24 @@ export default function FareForm(props: FareFormProps) {
           type='number'
           min='0'
           value={rides}
-          onChange={(e) => setRides(e.target.value)}
+          onChange={handleRidesChange}
           disabled={loading}
+          className={ridesError ? 'error' : ''}
+          aria-invalid={Boolean(ridesError)}
+          aria-describedby={ridesError ? 'rides-error' : undefined}
         />
+        {ridesError ? (
+          <div className='fare-error' id='rides-error' role='alert'>
+            {ridesError}
+          </div>
+        ) : type === 'anytime' ? (
+          <div className='fare-helper'>
+            Anytime tickets must be purchased in multiples of 10
+          </div>
+        ) : null}
       </div>
 
-      <div className='fare-result'>
+      <div className='fare-result' aria-live='polite'>
         <small>
           {loading
             ? 'Loading fares...'
