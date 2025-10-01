@@ -67,12 +67,9 @@ export default function FareForm(props: FareFormProps) {
     );
   }
 
-  // Handle rides input change
-  const handleRidesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setRides(value);
-
-    if (type === 'anytime') {
+  // Add this new validation function
+  const validateRides = (value: string, fareType: FareType) => {
+    if (fareType === 'anytime') {
       const numValue = Number(value);
       if (numValue % 10 !== 0) {
         setRidesError('Anytime tickets must be purchased in multiples of 10');
@@ -82,6 +79,20 @@ export default function FareForm(props: FareFormProps) {
     } else {
       setRidesError('');
     }
+  };
+
+  // Update the rides change handler to use the validation function
+  const handleRidesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setRides(value);
+    validateRides(value, type);
+  };
+
+  // Add validation when fare type changes
+  const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newType = e.target.value as FareType;
+    setType(newType);
+    validateRides(rides, newType);
   };
 
   return (
@@ -113,7 +124,7 @@ export default function FareForm(props: FareFormProps) {
         <select
           id='type'
           value={type}
-          onChange={(e) => setType(e.target.value as FareType)}
+          onChange={handleTypeChange} // Update this line
           disabled={loading}
           aria-describedby='type-helper'
         >
