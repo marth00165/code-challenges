@@ -1,16 +1,95 @@
-# React + Vite
+# SEPTA Fare Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, accessible React component for calculating SEPTA Regional Rail fares.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Live fare data fetching from JSON
+- Support for all SEPTA zones and fare types
+- Special handling for 10-trip "Anytime" tickets
+- Responsive design for mobile and desktop
+- ARIA-compliant accessibility features
+- Comprehensive test coverage
 
-## React Compiler
+## Installation
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+```
 
-## Expanding the ESLint configuration
+### Note on Assets
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The SEPTA logo is implemented using a WebP format for optimal performance, as the SVG asset was not provided. The WebP format was chosen because:
+
+- Excellent compression while maintaining quality
+- Wide browser support
+- Good performance characteristics for both mobile and desktop
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm test` - Run tests in watch mode
+- `npm run test:coverage` - Run tests with coverage report
+- `npm run test:ui` - Run tests with UI interface
+
+## Project Structure
+
+```
+src/
+├── components/
+│   └── FairForm.tsx      # Main fare calculator component
+├── hooks/
+│   └── useFairs.tsx      # Data fetching hook
+├── utils/
+│   └── calcFare.ts       # Fare calculation logic
+└── tests/
+    ├── SeptaForm.spec.tsx
+    └── useFairs.spec.tsx
+```
+
+## Design Decisions
+
+- **Component Architecture**: Single responsibility components with clear separation of concerns
+- **Data Fetching**: Custom hook for reusability and separation from UI
+- **Accessibility**: ARIA attributes, keyboard navigation, and screen reader support
+- **Validation**: Client-side validation for "Anytime" tickets with clear error messaging
+- **Responsive Design**: Mobile-first approach with fluid layouts
+
+## Accessibility Features
+
+- Proper ARIA attributes for form controls
+- Clear error messaging with `aria-invalid` and `aria-describedby`
+- Keyboard navigation support
+- Screen reader friendly helper text
+- High contrast color scheme
+- Responsive text sizing
+
+## Testing
+
+Tests cover:
+
+- Component rendering
+- User interactions
+- Data fetching
+- Error handling
+- Accessibility requirements
+- Responsive behavior
+
+## Browser Support
+
+Tested and working in:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Development Time
+
+This project was completed in approximately 4 hours, focusing on:
+
+- Core functionality: 2 hours
+- Styling and responsive design: 1 hours
+- Testing and documentation: 1 hours
